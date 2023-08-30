@@ -32,3 +32,37 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 //   top: cardHeight * 2,
 //   behavior: 'smooth',
 // });
+
+// key
+// u_s1z2smcxu5
+
+const elements = {
+  submitBtn: document.querySelector('button[type="submit"]'),
+  galleryEl: document.querySelector('.gallery'),
+  loadMoreBtn: document.querySelector('.load-more'),
+};
+
+const { submitBtn, galleryEl, loadMoreBtn } = elements;
+
+// const API_KEY =
+//   'https://pixabay.com/api/?key=39155276-6bb78cfc3029a8ff9cc1c0e7d';
+let page = 1;
+
+submitBtn.addEventListener('click', onSubmitBtnHandler);
+
+async function onSubmitBtnHandler(e) {
+  e.preventDefault();
+  const res = await fetch(
+    `https://pixabay.com/api/?key=39155276-6bb78cfc3029a8ff9cc1c0e7d&page=${page}&per_page=40`
+  );
+  const data = await res.json();
+
+  console.log(data.hits);
+
+  markUp();
+}
+
+function markUp() {
+  // galleryEl.innerHTML = fews;
+  loadMoreBtn.classList.remove('is-hidden');
+}

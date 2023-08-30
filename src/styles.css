@@ -1,0 +1,23 @@
+.search-form {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.search-form input {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 0 0 2px rgb(0, 0, 0, 0.1);
+}
+
+.search-form button {
+  padding: 4px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+.is-hidden {
+  display: none;
+}
