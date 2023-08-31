@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <form class="search-form" id="search-form">
+    <form class="search-form container" id="search-form">
       <input
         type="text"
         name="searchQuery"
@@ -16,10 +16,10 @@
       />
       <button type="submit">Search</button>
     </form>
-    <div class="gallery">
+    <div class="loader"></div>
+    <div class="gallery container">
       <!-- Картки зображень -->
     </div>
-    <button type="button" class="load-more is-hidden">Load more</button>
     <script type="module" src="./index.js"></script>
   </body>
 </html>
