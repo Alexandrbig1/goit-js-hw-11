@@ -71,7 +71,6 @@ function renderGallery(hits) {
       reachedEnd = true;
     }
   }
-
   lightbox.refresh();
 }
 
@@ -126,6 +125,7 @@ async function onSearchBtnHandler(e) {
       );
     } else {
       Notify.success(`Hooray! We found ${totalHits} images.`);
+
       renderGallery(hits);
     }
     searchInput.value = '';
