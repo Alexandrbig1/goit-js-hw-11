@@ -20,7 +20,7 @@ const lightbox = new SimpleLightbox('.lightbox', {
   close: false,
 });
 
-searchForm.addEventListener('submit', onSearchBtnHandler);
+searchForm.addEventListener('submit', onFormSybmit);
 window.addEventListener('scroll', onScrollHandler);
 document.addEventListener('DOMContentLoaded', hideLoader);
 
@@ -104,10 +104,10 @@ function onScrollHandler() {
   }
 }
 
-async function onSearchBtnHandler(e) {
+async function onFormSybmit(e) {
   e.preventDefault();
-  options.params.q = searchInput.value;
-  if (options.params.q.trim() === '') {
+  options.params.q = searchInput.value.trim();
+  if (options.params.q === '') {
     return;
   }
   options.params.page = 1;
