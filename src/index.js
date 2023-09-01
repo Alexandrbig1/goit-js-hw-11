@@ -2,6 +2,8 @@ import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import { elements } from './elements';
+import { BASE_URL, options } from './api';
 
 const elements = {
   galleryEl: document.querySelector('.gallery'),
@@ -12,23 +14,18 @@ const elements = {
 
 const { galleryEl, searchInput, searchForm, loaderEl } = elements;
 
-const BASE_URL = 'https://pixabay.com/api/';
-const API_KEY = '39155276-6bb78cfc3029a8ff9cc1c0e7d';
-const options = {
-  params: {
-    key: API_KEY,
-    image_type: 'photo',
-    orientation: 'horizontal',
-    safesearch: true,
-    per_page: 40,
-    page: 1,
-    q: '',
-  },
-};
-
 let totalHits = 0;
 let isLoadingMore = false;
 let reachedEnd = false;
+
+const lightbox = new SimpleLightbox('.lightbox', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  enableKeyboard: true,
+  showCounter: false,
+  scrollZoom: false,
+  close: false,
+});
 
 searchForm.addEventListener('submit', onSearchBtnHandler);
 window.addEventListener('scroll', onScrollHandler);
@@ -81,14 +78,6 @@ function renderGallery(hits) {
       reachedEnd = true;
     }
   }
-  const lightbox = new SimpleLightbox('.lightbox', {
-    captionsData: 'alt',
-    captionDelay: 250,
-    enableKeyboard: true,
-    showCounter: false,
-    scrollZoom: false,
-    close: false,
-  });
   lightbox.refresh();
 }
 
@@ -125,7 +114,7 @@ function onScrollHandler() {
 async function onSearchBtnHandler(e) {
   e.preventDefault();
   options.params.q = searchInput.value;
-  if (options.params.q === '') {
+  if (options.params.q.trim() === '') {
     return;
   }
   options.params.page = 1;
@@ -137,12 +126,12 @@ async function onSearchBtnHandler(e) {
     const response = await axios.get(BASE_URL, options);
     totalHits = response.data.totalHits;
     const hits = response.data.hits;
-    Notify.success(`Hooray! We found ${totalHits} images.`);
     if (hits.length === 0) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
     } else {
+      Notify.success(`Hooray! We found ${totalHits} images.`);
       renderGallery(hits);
     }
     searchInput.value = '';
